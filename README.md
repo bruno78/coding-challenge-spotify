@@ -1,4 +1,4 @@
-# Coding Challenge Spotify
+# Coding Challenge Spotify New York City Technology Fellowship Program
 
 Answers to the code challenge:
 
