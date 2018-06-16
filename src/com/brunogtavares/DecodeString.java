@@ -1,5 +1,7 @@
 package com.brunogtavares;
 
+import java.util.Stack;
+
 /**
  * Question 2 -- decodeString(s): Given an encoded string, return its corresponding decoded string.
  *
@@ -14,16 +16,69 @@ public class DecodeString {
 
     public static void main(String[] args) {
         // write your code here
-        System.out.println();
-        System.out.println();
+        System.out.println(decodeString("4[ab]"));
+        System.out.println(decodeString("2[b3[a]]"));
     }
 
-    public void decodeString(String decoded) {
-        StringBuilder result = new StringBuilder();
+    public static String decodeString(String string) {
+        Stack<StringSequence> stringSequenceStack = new Stack<>();
+        stringSequenceStack.push(new StringSequence(1));
+        int count = 0;
 
-        for(int i = 0; i < decoded.length(); i++) {
-            
+        for (int i = 0; i < string.length(); i++) {
+            char c = string.charAt(i);
+
+           if (Character.isDigit(c)) {
+               int number = Integer.parseInt(Character.toString(c));
+               count = count * 10 + number;
+           }
+           if (c == '[') {
+               stringSequenceStack.push(new StringSequence(count));
+               // reset counts
+               count = 0;
+           }
+           if (Character.isAlphabetic(c)) {
+               stringSequenceStack.peek().addToSequence(c);
+           }
+           if (c ==']') {
+
+               int times = stringSequenceStack.peek().getNumOfRepeats();
+               String sequence = stringSequenceStack.pop().getSequence();
+
+               while(times > 0) {
+                   stringSequenceStack.peek().addToSequence(sequence);
+                   times --;
+               }
+           }
         }
+        return stringSequenceStack.pop().getSequence();
+    }
+
+    public static class StringSequence {
+        private int mNumOfRepeats;
+        private StringBuilder mSequence;
+
+        public StringSequence(int repeatingTimes) {
+            mNumOfRepeats = repeatingTimes;
+            mSequence = new StringBuilder();
+        }
+
+        public void addToSequence(char letter) {
+            mSequence.append(letter);
+        }
+
+        public void addToSequence(String sequence) {
+            mSequence.append(sequence);
+        }
+
+        public String getSequence() {
+            return mSequence.toString();
+        }
+
+        public int getNumOfRepeats() {
+            return mNumOfRepeats;
+        }
+
     }
 
 
