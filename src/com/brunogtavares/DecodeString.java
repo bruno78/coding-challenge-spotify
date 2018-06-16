@@ -38,7 +38,7 @@ public class DecodeString {
                count = 0;
            }
            if (Character.isAlphabetic(c)) {
-               stringSequenceStack.peek().addToSequence(c);
+               stringSequenceStack.peek().addToSequence(Character.toString(c));
            }
            if (c ==']') {
 
@@ -61,10 +61,6 @@ public class DecodeString {
         public StringSequence(int repeatingTimes) {
             mNumOfRepeats = repeatingTimes;
             mSequence = new StringBuilder();
-        }
-
-        public void addToSequence(char letter) {
-            mSequence.append(letter);
         }
 
         public void addToSequence(String sequence) {
