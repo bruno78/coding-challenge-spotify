@@ -23,7 +23,7 @@ public class ChangePossibilities {
     }
 
     public static int changePossibilities(int amount, int[] denominations) {
-        int[] possibilities = new int[amount + 1]; // n + 1 possibilities
+        int[] possibilities = new int[amount + 1];
 
         possibilities[0] = 1;
         for (int i = 0; i < denominations.length; i++) {
